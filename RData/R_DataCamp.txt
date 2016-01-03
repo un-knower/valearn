@@ -1,0 +1,154 @@
+################## Chapter 1
+
+
+# Import the training set: train
+train_url <- "http://s3.amazonaws.com/assets.datacamp.com/course/Kaggle/train.csv"
+train <- read.csv(train_url)
+  
+# Import the testing set: test
+test_url <- "http://s3.amazonaws.com/assets.datacamp.com/course/Kaggle/test.csv"
+test <- read.csv(test_url)
+  
+# Print train and test to the console
+train
+test
+
+# Your train and test set are still loaded
+str(train)
+str(test)
+
+# Passengers that survived vs passengers that passed away
+table(train$Survived)
+
+
+# As proportions
+prop.table(table(train$Survived))
+  
+# Males & females that survived vs males & females that passed away
+table(train$Sex, train$Survived)
+
+# As row-wise proportions
+prop.table(table(train$Sex, train$Survived),margin=1)
+
+
+# Your train and test set are still loaded in
+str(train)
+str(test)
+
+# Create the column child, and indicate whether child or no child
+train$Child <- 0
+train$Child[is.na(train$Age)] <- NA
+train$Child[train$Age < 18] <- 1
+# Two-way comparison
+prop.table(table(train$Child,train$Survived),margin=1)
+
+# Your train and test set are still loaded in
+str(train)
+str(test)
+
+# Create a copy of test: test_one
+test_one <- test
+
+# Initialize a Survived column to 0
+test_one$Survived <- 0
+
+# Set Survived to 1 if Sex equals "female"
+test_one$Survived[test$Sex =="female"] <- 1
+
+
+
+
+
+# Your train and test set are still loaded in
+str(train)
+str(test)
+
+# Build the decision tree
+my_tree <- rpart(Survived ~ Sex + Age, 
+                 data = train, 
+                 method ="class")
+my_tree_two <- rpart(Survived~Pclass+Sex+Age+SibSp+Parch+Fare+Embarked,data=train,method="class")
+
+# Visualize the decision tree using plot() and text()
+plot(my_tree_two)
+text(my_tree_two)
+
+# Load in the packages to create a fancified version of your tree
+library(rattle)
+library(rpart.plot)
+library(RColorBrewer)
+
+# Time to plot your fancy tree
+fancyRpartPlot(my_tree_two)
+
+
+
+# Your train and test set are still loaded in
+str(train)
+str(test)
+
+# Make your prediction using the test set
+my_prediction <- predict(my_tree_two,test,type="class")
+
+# Create a data frame with two columns: PassengerId & Survived. Survived contains your predictions
+my_solution <- data.frame(PassengerId =test$PassengerId, Survived = my_prediction)
+
+# Check that your data frame has 418 entries
+nrow(my_solution)
+
+# Write your solution to a csv file with the name my_solution.csv
+write.csv(my_solution,file="my_solution.csv",row.names = FALSE)
+
+
+
+
+
+# Your train and test set are still loaded in
+str(train)
+str(test)
+
+# Create a new decision tree my_tree_three
+my_tree_three <- rpart(Survived~Pclass+Sex+Age+SibSp+Parch+Fare+Embarked,data=train,method="class",control=rpart.control(minsplit=50,cp=0))
+  
+# Visualize your new decision tree
+fancyRpartPlot(my_tree_three)
+
+
+
+# Your train and test set are still loaded in
+str(train)
+str(test)
+
+# create a new train set with the new variable
+train_two <- train
+train_two$family_size <- train_two$SibSp+train_two$Parch+1
+
+# Create a new decision tree my_tree_three
+my_tree_four <- rpart(Survived~Pclass+Sex+Age+SibSp+Parch+Fare+Embarked+family_size,data=train_two,method="class",control=rpart.control(minsplit=50,cp=0))
+  
+# Visualize your new decision tree
+fancyRpartPlot(my_tree_four)
+
+
+######################################################################
+
+
+# train_new and test_new are available in the workspace
+str(train_new)
+str(test_new)
+
+# Create a new model `my_tree_five`
+my_tree_five <- rpart(Survived~Pclass+Sex+Age+SibSp+Parch+Fare+Embarked+Title,data=train_new,method="class")
+
+# Visualize your new decision tree
+fancyRpartPlot(my_tree_five)
+
+# Make your prediction using `my_tree_five` and `test_new`
+my_prediction <- predict(my_tree_five,test_new,type="class")
+
+# Create a data frame with two columns: PassengerId & Survived. Survived contains your predictions
+my_solution <- data.frame(PassengerID=test_new$PassengerId,Survived=my_prediction)
+
+# Write your solution away to a csv file with the name my_solution.csv
+write.csv(my_solution,file="my_solution.csv",row.names=FALSE)
+
