@@ -1,4 +1,3 @@
-
 ################### PRINT EXAMPLE USING FORMAT STRINGS##################################
 # change this code
 mystring = 'hello'
