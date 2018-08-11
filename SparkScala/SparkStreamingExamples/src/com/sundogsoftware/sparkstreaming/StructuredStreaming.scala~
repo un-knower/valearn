@@ -25,7 +25,9 @@ object StructuredStreaming {
    def parseDateField(field: String): Option[String] = {
 
     
-    
+    //None is the same as null in Java.It should be used carefully though
+    //http://alvinalexander.com/scala/using-scala-option-some-none-idiom-function-java-null
+    //
       val dateMatcher = datePattern.matcher(field)
       if (dateMatcher.find) {
               val dateString = dateMatcher.group(1)   

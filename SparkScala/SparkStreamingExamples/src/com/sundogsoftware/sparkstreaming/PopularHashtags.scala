@@ -51,9 +51,8 @@ object PopularHashtags {
     // Print the top 10
     sortedResults.print
     
-    // Set a checkpoint directory, and kick it all off
-    // I could watch this all day!
-    ssc.checkpoint("C:/checkpoint/")
+    
+    ssc.checkpoint("/home/nikos/checkpoint/")
     ssc.start()
     ssc.awaitTermination()
   }  

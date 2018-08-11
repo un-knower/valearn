@@ -1,6 +1,6 @@
 // Flume setup steps (and more) at http://spark.apache.org/docs/latest/streaming-flume-integration.html
 
-package com.sundogsoftware.sparkstreaming
+package com.sundogsoftware.sparkstreaming /**
 
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
@@ -55,3 +55,4 @@ object FlumePullExample {
   }
 }
 
+*/

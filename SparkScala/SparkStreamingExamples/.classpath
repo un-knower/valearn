@@ -212,5 +212,6 @@
 	<classpathentry exported="true" kind="lib" path="C:/spark/jars/xmlenc-0.52.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/spark/jars/xz-1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/spark/jars/zookeeper-3.4.6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ExtJar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

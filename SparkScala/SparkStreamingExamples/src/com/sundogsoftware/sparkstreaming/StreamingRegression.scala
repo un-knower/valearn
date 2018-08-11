@@ -13,6 +13,14 @@ import org.apache.spark.mllib.regression.StreamingLinearRegressionWithSGD
 
 import Utilities._
 
+
+
+/*
+ * Suppose we have an online shop.Predict the revenue of each product by using the page speed (secons to load) 
+ * as a feature
+ *
+ * 
+ */
 /** Example of using streaming linear regression with stochastic gradient descent.
  *  Listens to port 9999 for data on page speed vs. amount spent, and creates
  *  a linear model to predict amount spent by page speed over time.
@@ -60,7 +68,7 @@ object StreamingRegression {
     model.predictOnValues(testData.map(lp => (lp.label, lp.features))).print()
     
     // Kick it off
-    ssc.checkpoint("C:/checkpoint/")
+    ssc.checkpoint("/tmp/checkpoint/")
     ssc.start()
     ssc.awaitTermination()
   }

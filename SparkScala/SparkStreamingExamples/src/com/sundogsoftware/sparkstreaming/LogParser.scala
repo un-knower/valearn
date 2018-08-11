@@ -42,7 +42,8 @@ object LogParser {
     sortedResults.print()
     
     // Kick it off
-    ssc.checkpoint("C:/checkpoint/")
+  
+    ssc.checkpoint("/home/nikos/checkpoint/")
     ssc.start()
     ssc.awaitTermination()
   }

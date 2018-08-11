@@ -19,6 +19,8 @@ import java.util.concurrent.atomic._
 object LogAlarmer {
   
   def main(args: Array[String]) {
+    
+    
 
     // Create the context with a 1 second batch size
     val ssc = new StreamingContext("local[*]", "LogAlarmer", Seconds(1))
@@ -59,6 +61,8 @@ object LogAlarmer {
       var totalSuccess:Long = 0
       var totalError:Long = 0
 
+   
+        
       if (rdd.count() > 0) {
         val elements = rdd.collect()
         for (element <- elements) {
@@ -93,14 +97,19 @@ object LogAlarmer {
       }
     })
     
-    // Also in real life, you'd need to monitor the case of your site freezing entirely
-    // and traffic stopping. In other words, don't use this script to monitor a real
-    // production website! There's more you need.
+   
     
     // Kick it off
-    ssc.checkpoint("C:/checkpoint/")
+    ssc.checkpoint("/home/nikos/checkpoint/")
     ssc.start()
     ssc.awaitTermination()
   }
 }
+
+
+
+
+
+
+     
 

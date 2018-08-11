@@ -42,12 +42,10 @@ object AverageTweetLength {
     var totalTweets = new AtomicLong(0)
     var totalChars = new AtomicLong(0)
     
-    // In Spark 1.6+, you  might also look into the mapWithState function, which allows
-    // you to safely and efficiently keep track of global state with key/value pairs.
-    // We'll do that later in the course.
     
     lengths.foreachRDD((rdd, time) => {
       
+      //rdd.count() gives the number of tweets in that rdd
       var count = rdd.count()
       if (count > 0) {
         totalTweets.getAndAdd(count)
@@ -60,9 +58,10 @@ object AverageTweetLength {
       }
     })
     
-    // Set a checkpoint directory, and kick it all off
-    // I could watch this all day!
-    ssc.checkpoint("C:/checkpoint/")
+    
+    
+    
+    ssc.checkpoint("/home/nikos/checkpoint/")
     ssc.start()
     ssc.awaitTermination()
   }  

@@ -42,7 +42,22 @@ object Utilities {
     val regex = s"$ip $client $user $dateTime $request $status $bytes $referer $agent"
     Pattern.compile(regex)    
     
+    //? Also in both cases ? is optional and the regex will still work. See here what questionmark does http://www.regular-expressions.info/optional.html
+    //Also in both cases parentheses () means that we look for a group of characters
     
+    //######### ANOTHER WAY - FOUND AT http://stackoverflow.com/questions/29758649/apache-weblog-parsing-using-regex-which-is-better-case-class-or-a-java-like-cl)
+    
+    /* DATETIME: \[(.*)\]  This regex matches zero or more charactesrs in brackets except newline because
+         .   - Matches any single character except newline.
+         re* - Matches 0 or more occurrences of preceding expression
+         Because we have * datetime can be empty. Frank in his regex uses + which means datetime cannot be empty
+     
+       REQUEST: \"(.+?)\"  This regex matches one or more characters in autakia "". ? means as few as possible matches   
+     
+       Both methods (Kanes and the site's are similar 
+       Frank assumes that datetime cannot be empty while requst can. The site assumes the opposite
+       ? is not important and regexes work the same
+     */
     
 
   }
